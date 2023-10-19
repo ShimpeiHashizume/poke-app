@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import { getAllPokemon, getPokemon } from './utils/pokemon';
-import { Card } from './components/Card/Card';
-import { Navbar } from './components/Card/Navbar/Navbar';
+import { useEffect, useState } from "react";
+import "./App.css";
+import { getAllPokemon, getPokemon } from "./utils/pokemon";
+import { Card } from "./components/Card/Card";
+import { Navbar } from "./components/Navbar/Navbar";
 
 function App() {
   const initialURL = "https://pokeapi.co/api/v2/pokemon";
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState([]);
   const [nextUrl, setNextUrl] = useState("");
@@ -19,7 +19,7 @@ function App() {
       setNextUrl(res.next);
       setPrevUrl(res.previous);
       setIsLoading(false);
-    }
+    };
     fetchPokemonData();
   }, []);
 
@@ -34,7 +34,7 @@ function App() {
   };
 
   const handlePrevPage = async () => {
-    if(!prevUrl) return;
+    if (!prevUrl) return;
     setIsLoading(true);
     let data = await getAllPokemon(prevUrl);
     await loadPokemon(data.results);
@@ -53,7 +53,7 @@ function App() {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="App">
         {isLoading ? (
           <h1>ロード中...</h1>
@@ -61,9 +61,7 @@ function App() {
           <>
             <div className="pokemonCardContainer">
               {pokemonData.map((pokemon, index) => {
-                return (
-                  <Card key={index} pokemon={pokemon} />
-                )
+                return <Card key={index} pokemon={pokemon} />;
               })}
             </div>
             <div className="btn">
@@ -74,7 +72,7 @@ function App() {
         )}
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
